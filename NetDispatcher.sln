@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 14 for Windows Desktop
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetDispatcher", "NetDispatcher\NetDispatcher.csproj", "{A1B1E7D6-7BD8-4ACC-B589-070E131744AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageDispatcherTests", "MessageDispatcherTests\MessageDispatcherTests.csproj", "{F3C137D3-B051-4DC3-A0D0-1E0A4A162CCE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A1B1E7D6-7BD8-4ACC-B589-070E131744AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1B1E7D6-7BD8-4ACC-B589-070E131744AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1B1E7D6-7BD8-4ACC-B589-070E131744AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1B1E7D6-7BD8-4ACC-B589-070E131744AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3C137D3-B051-4DC3-A0D0-1E0A4A162CCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3C137D3-B051-4DC3-A0D0-1E0A4A162CCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3C137D3-B051-4DC3-A0D0-1E0A4A162CCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3C137D3-B051-4DC3-A0D0-1E0A4A162CCE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

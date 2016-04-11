@@ -6,13 +6,17 @@ using System.Threading.Tasks;
 
 namespace NetDispatcher
 {
-    public delegate void MessageHandler<U>(U message);
-
     public sealed class MessageDispatcher<T, U>
     {
         static ConcurrentDictionary<T, System.Delegate> handlers =
             new ConcurrentDictionary<T, System.Delegate>();
 
+        /// <summary>
+        /// Dispatches a message to all handlers. Blocks until all handlers
+        /// have been called. Handlers are called asynchronously.
+        /// </summary>
+        /// <param name="type">Type object.</param>
+        /// <param name="message">Message object to dispatch.</param>
         public static void Dispatch(T type, U message)
         {
             System.Delegate eventHandlers;
@@ -26,7 +30,7 @@ namespace NetDispatcher
                     {
                         taskList.Add(Task.Run(delegate
                         {
-                            ((MessageHandler<U>)eventHandler)(message);
+                            ((Action<U>)eventHandler).Invoke(message);
                         }));
                     }
                     Task.WaitAll(taskList.ToArray());
@@ -39,7 +43,12 @@ namespace NetDispatcher
             }
         }
 
-        public static void RegisterHandler(T type, MessageHandler<U> handler)
+        /// <summary>
+        /// Register a handler for a message type.
+        /// </summary>
+        /// <param name="type">Type object.</param>
+        /// <param name="handler">Message handler delegate.</param>
+        public static void RegisterHandler(T type, Action<U> handler)
         {
             Delegate d;
             handlers.TryGetValue(type, out d);
@@ -49,17 +58,22 @@ namespace NetDispatcher
                 handlers[type] = null;
             }
 
-            handlers[type] = (MessageHandler<U>)handlers[type] + handler;
+            handlers[type] = (Action<U>)handlers[type] + handler;
         }
 
-        public static void DeregisterHandler(T type, MessageHandler<U> handler)
+        /// <summary>
+        /// Removes handler for a message type.
+        /// </summary>
+        /// <param name="type">Type object.</param>
+        /// <param name="handler">Message handler delegate.</param>
+        public static void DeregisterHandler(T type, Action<U> handler)
         {
             Delegate d;
             handlers.TryGetValue(type, out d);
 
             if (d != null)
             {
-                handlers[type] = (MessageHandler<U>)handlers[type] - handler;
+                handlers[type] = (Action<U>)handlers[type] - handler;
             }
         }
     }

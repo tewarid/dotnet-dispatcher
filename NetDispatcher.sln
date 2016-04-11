@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetDispatcher", "NetDispatcher\NetDispatcher.csproj", "{A1B1E7D6-7BD8-4ACC-B589-070E131744AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageDispatcherTests", "MessageDispatcherTests\MessageDispatcherTests.csproj", "{F3C137D3-B051-4DC3-A0D0-1E0A4A162CCE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetDispatcherTests", "MessageDispatcherTests\NetDispatcherTests.csproj", "{F3C137D3-B051-4DC3-A0D0-1E0A4A162CCE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -10,11 +10,22 @@ namespace MessageDispatcherTests
     [TestClass]
     public class MessageDispatcherTests
     {
-        int countBar = 0;
+        int countBar;
 
+        [TestInitialize]
+        public void TestInitialize()
+        {
+            countBar = 0;
+        }
+
+        /// <summary>
+        /// Test registering and deregistering of handlers.
+        /// </summary>
         [TestMethod]
         public void TestMethod1()
         {
+            MessageDispatcher<string, string>.Clear("foo");
+
             // Register a handler for "foo" that accepts messages of type string
             MessageDispatcher<string, string>.RegisterHandler("foo", FooHandler1);
 
@@ -54,9 +65,14 @@ namespace MessageDispatcherTests
             Assert.AreEqual(1, i);
         }
 
+        /// <summary>
+        /// Test multiple message producers and consumers.
+        /// </summary>
         [TestMethod]
         public void TestMethod2()
         {
+            MessageDispatcher<string, string>.Clear("foo");
+
             int NUM = 1000;
             List<Task> producerTasks = new List<Task>();
             int[] consumerStates = new int[NUM];
@@ -66,7 +82,7 @@ namespace MessageDispatcherTests
             {
                 Task task = new Task(delegate ()
                 {
-                    MessageDispatcher<string, string>.Dispatch("foo2", "bar");
+                    MessageDispatcher<string, string>.Dispatch("foo", "bar");
                 });
                 producerTasks.Add(task);
             }
@@ -75,7 +91,7 @@ namespace MessageDispatcherTests
             for (int i = 0; i < NUM; i++)
             {
                 int[] state = new int[] { i }; // lexical closure
-                MessageDispatcher<string, string>.RegisterHandler("foo2", delegate (string message)
+                MessageDispatcher<string, string>.RegisterHandler("foo", delegate (string message)
                 {
                     Interlocked.Increment(ref consumerStates[state[0]]);
                 });
@@ -97,19 +113,37 @@ namespace MessageDispatcherTests
             }
         }
 
+        /// <summary>
+        /// Test handlers that produce exceptions.
+        /// </summary>
         [TestMethod]
         public void TestMethod3()
         {
+            MessageDispatcher<string, string>.Clear("foo");
+
             // Register a handler for "foo" that accepts messages of type string
-            MessageDispatcher<string, string>.RegisterHandler("foo3", FooHandler4);
+            MessageDispatcher<string, string>.RegisterHandler("foo", FooHandler4);
+
+            // Register a handler for "foo" that accepts messages of type string
+            MessageDispatcher<string, string>.RegisterHandler("foo", FooHandler5);
 
             // Dispatch a message of type string
-            MessageDispatcher<string, string>.Dispatch("foo3", "bar");
+            MessageDispatcher<string, string>.Dispatch("foo", "bar");
+
+            Assert.AreEqual(2, countBar);
         }
 
         private void FooHandler4(string message)
         {
             Assert.AreEqual("bar", message);
+            countBar++;
+            throw new Exception();
+        }
+
+        private void FooHandler5(string message)
+        {
+            Assert.AreEqual("bar", message);
+            countBar++;
             throw new Exception();
         }
     }

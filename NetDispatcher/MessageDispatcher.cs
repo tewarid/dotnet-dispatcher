@@ -76,5 +76,20 @@ namespace NetDispatcher
                 handlers[type] = (Action<U>)handlers[type] - handler;
             }
         }
+
+        /// <summary>
+        /// Clear all message handlers of a particular type.
+        /// </summary>
+        /// <param name="type">Type object.</param>
+        public static void Clear(T type)
+        {
+            Delegate d;
+            handlers.TryGetValue(type, out d);
+
+            if (d != null)
+            {
+                handlers[type] = null;
+            }
+        }
     }
 }

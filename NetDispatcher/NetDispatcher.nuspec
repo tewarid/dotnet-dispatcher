@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>NetDispatcher</id>
+    <version>$version$</version>
+    <title>Simple in-process asynchronous message dispatcher</title>
+    <authors>Devendra Tewari</authors>
+    <owners>$author$</owners>
+    <licenseUrl>https://github.com/tewarid/net-dispatcher/blob/master/License.md</licenseUrl>
+    <projectUrl>https://github.com/tewarid/net-dispatcher</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A simple in-process asynchronous message dispatcher.</description>
+    <releaseNotes>Initial revision.</releaseNotes>
+    <copyright>Copyright 2016</copyright>
+  </metadata>
+</package>
